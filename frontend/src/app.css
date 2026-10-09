@@ -16,7 +16,9 @@
 }
 
 @theme {
-  --font-sans: "Helvetica", "Arial", "sans-serif";
+  --font-sans:
+    "Helvetica", "Arial", system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
 
   --color-neutral-850: oklch(25.4% 0 0);
 
