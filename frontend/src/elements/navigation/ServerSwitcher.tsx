@@ -100,6 +100,7 @@ export default function ServerSwitcher({ className, isServer }: { className?: st
       onChange={handleChange}
       onDropdownOpen={() => setOpened(true)}
       searchable
+      selectFirstOptionOnChange
       searchValue={servers.search}
       onSearchChange={servers.setSearch}
       loading={servers.loading}
