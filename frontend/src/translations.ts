@@ -4661,6 +4661,9 @@ const baseTranslations = defineTranslations({
                   authUrl: 'Auth URL',
                   tokenUrl: 'Token URL',
                   infoUrl: 'Info URL',
+                  infoUrls: 'Additional Info URLs',
+                  infoUrlsDescription:
+                    'Extra endpoints fetched with the access token on every login, usable as a source in mapping matchers. A 404 response counts as absent, any other error fails the login.',
                   basicAuth: 'Basic Auth',
                   basicAuthDescription:
                     'Uses HTTP Basic Authentication to transmit the client id and secret, not common anymore.',
@@ -4767,9 +4770,13 @@ const baseTranslations = defineTranslations({
                   matcherType: 'Matcher Type',
                   scopes: 'Scopes',
                   scopesDescription: 'OAuth scopes that must all have been granted for this matcher to match.',
+                  source: 'Source',
+                  sourceDescription:
+                    'The response the path is evaluated against. A source that responded with 404 never matches.',
+                  sourceInfoUrl: 'Info URL',
                   path: 'Field Path',
                   pathDescription:
-                    'The path used to extract the compared field from the Info URL response (https://serdejsonpath.live).',
+                    'The path used to extract the compared field from the source response (https://serdejsonpath.live).',
                   equals: 'Equals',
                   contains: 'Contains',
                   startsWith: 'Starts With',

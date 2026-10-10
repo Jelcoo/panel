@@ -9,7 +9,8 @@ mod post {
     use shared::{
         ApiError, GetState,
         models::{
-            ByUuid, admin_activity::GetAdminActivityLogger, nest::Nest, user::GetPermissionManager,
+            ByUuid, admin_activity::GetAdminActivityLogger, nest::Nest, nest_egg::NestEgg,
+            user::GetPermissionManager,
         },
         response::{ApiResponse, ApiResponseResult},
     };
@@ -75,6 +76,8 @@ mod post {
         )
         .execute(state.database.write())
         .await?;
+
+        NestEgg::invalidate_cached(&state.database, egg.uuid).await;
 
         activity_logger
             .log(

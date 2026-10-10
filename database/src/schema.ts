@@ -462,6 +462,7 @@ export const oauthProvidersTable = pgTable(
     auth_url: varchar({ length: 255 }).notNull(),
     token_url: varchar({ length: 255 }).notNull(),
     info_url: varchar({ length: 255 }).notNull(),
+    info_urls: json().default({}).notNull(),
     scopes: varchar({ length: 64 }).array().notNull(),
     identifier_path: varchar({ length: 255 }).notNull(),
     email_path: varchar({ length: 255 }),
