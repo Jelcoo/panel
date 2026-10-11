@@ -61,7 +61,7 @@ export function useUserFormFields({
       type: 'text',
       name: 'username',
       label: t('common.table.columns.username', {}),
-      description: t('common.form.rule.username', {}),
+      tooltip: t('common.form.rule.username', {}),
       required: true,
       props: ignorePasswordManagerProps,
     },
