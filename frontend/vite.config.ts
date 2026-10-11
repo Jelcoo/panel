@@ -109,7 +109,7 @@ export default defineConfig({
             ...extensionChunkGroups(),
             {
               name: 'react',
-              test: /node_modules\/(react|react-dom|scheduler)\//,
+              test: /node_modules\/(react|react-dom|react-is|scheduler|use-sync-external-store)\//,
               priority: 20,
             },
             {
