@@ -832,16 +832,14 @@ export const eggConfigurationsTable = pgTable(
     name: varchar({ length: 255 * UTF8_MAX_SCALAR_SIZE }).notNull(),
     description: text(),
     order_: smallint().default(0).notNull(),
-    eggs: uuid().array().default([]).notNull(),
+    matcher: jsonb().notNull(),
     config_allocations: jsonb(),
     config_startup: jsonb(),
     config_routes: jsonb(),
+    config_features: jsonb(),
     created: timestamp().defaultNow().notNull(),
   },
-  (cols) => [
-    uniqueIndex('egg_configurations_name_idx').on(cols.name),
-    index('egg_configurations_eggs_idx').using('gin', cols.eggs),
-  ],
+  (cols) => [uniqueIndex('egg_configurations_name_idx').on(cols.name)],
 );
 
 export const nestsTable = pgTable(

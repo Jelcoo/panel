@@ -847,25 +847,6 @@ impl NestEgg {
         .await
     }
 
-    pub async fn configuration(
-        &self,
-        database: &crate::database::Database,
-    ) -> Result<super::egg_configuration::MergedEggConfiguration, anyhow::Error> {
-        database
-            .cache
-            .cached(
-                &format!("nest_egg::{}::configuration", self.uuid),
-                10,
-                || async {
-                    super::egg_configuration::EggConfiguration::merged_by_egg_uuid(
-                        database, self.uuid,
-                    )
-                    .await
-                },
-            )
-            .await
-    }
-
     #[inline]
     pub async fn into_exported(
         self,

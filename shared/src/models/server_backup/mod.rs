@@ -1538,7 +1538,7 @@ impl ServerBackup {
             .unwrap_or_default();
 
         if let Some(startup) = startup_cmd
-            && let Ok(egg_config) = server.egg.configuration(&state.database).await
+            && let Ok(egg_config) = server.egg_configuration(&state.database).await
         {
             let is_predefined = server
                 .egg

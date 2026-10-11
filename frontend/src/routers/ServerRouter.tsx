@@ -19,7 +19,7 @@ import QuickActionsTrigger from '@/elements/quickActions/QuickActionsTrigger.tsx
 import ServerQuickActions from '@/elements/quickActions/ServerQuickActions.tsx';
 import ServerStatusIndicator from '@/elements/ServerStatusIndicator.tsx';
 import { isAdmin } from '@/lib/auth/permissions.ts';
-import { isConflictingState } from '@/lib/domain/server.ts';
+import { getDisabledServerRoutePaths, isConflictingState } from '@/lib/domain/server.ts';
 import { resolveString } from '@/lib/lazy.ts';
 import { queryKeys } from '@/lib/queryKeys.ts';
 import { getAccessibleRoutePaths, to } from '@/lib/routes.ts';
@@ -130,6 +130,10 @@ export default function ServerRouter({ isNormal }: { isNormal: boolean }) {
   const accessibleRoutePaths = useMemo(
     () => getAccessibleRoutePaths(allServerRoutes, server.eggConfiguration?.routeOrder),
     [allServerRoutes, server.eggConfiguration?.routeOrder],
+  );
+  const disabledRoutePaths = useMemo(
+    () => getDisabledServerRoutePaths(server.eggConfiguration),
+    [server.eggConfiguration],
   );
 
   useEffect(() => {
@@ -296,6 +300,7 @@ export default function ServerRouter({ isNormal }: { isNormal: boolean }) {
                     {allServerRoutes
                       .filter((route) => !route.filter || route.filter())
                       .filter((route) => !accessibleRoutePaths || accessibleRoutePaths.has(route.path))
+                      .filter((route) => !disabledRoutePaths.has(route.path))
                       .map(({ path, element: Element, permission }) => (
                         <Route
                           key={path}

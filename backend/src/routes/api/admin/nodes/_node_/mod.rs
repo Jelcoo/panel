@@ -174,6 +174,7 @@ mod patch {
         models::{
             UpdatableModel,
             admin_activity::GetAdminActivityLogger,
+            egg_configuration::DisabledFeatures,
             node::{GetNode, UpdateNodeOptions},
             user::GetPermissionManager,
         },
@@ -205,6 +206,7 @@ mod patch {
     ) -> ApiResponseResult {
         permissions.has_admin_permission("nodes.update")?;
 
+        let disabled_features = DisabledFeatures::resolve(&state.database).await?;
         match node.update(&state, data).await {
             Ok(_) => {}
             Err(err) if err.is_unique_violation() => {
@@ -235,6 +237,8 @@ mod patch {
                 }),
             )
             .await;
+
+        disabled_features.propagate(&state).await;
 
         ApiResponse::new_serialized(Response {}).ok()
     }

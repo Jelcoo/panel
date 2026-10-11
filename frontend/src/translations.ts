@@ -4140,6 +4140,7 @@ const baseTranslations = defineTranslations({
           table: {
             columns: {
               order: 'Order',
+              appliesTo: 'Applies To',
             },
           },
           tabs: {
@@ -4150,9 +4151,41 @@ const baseTranslations = defineTranslations({
                 form: {
                   order: 'Order',
                   eggsPlaceholder: 'Select Eggs',
-                  eggsEmpty: 'No eggs are configured. Create a nest and egg before creating an egg configuration.',
+                  eggsEmpty:
+                    'No eggs are configured. Matching by egg or nest has nothing to select until a nest and egg exist.',
+                  nestsPlaceholder: 'Select Nests',
+                  nodesPlaceholder: 'Select Nodes',
+                  locationsPlaceholder: 'Select Locations',
+                  matcher: 'Applies To',
+                  matcherDescription:
+                    'Decides which servers this configuration applies to, by their egg, nest, node or location. When several configurations apply to a server, those with a higher order override those with a lower one.',
+                  matcherType: 'Matcher Type',
+                },
+                matcher: {
+                  allMustMatch: 'All matchers must match:',
+                  anyMustMatch: 'Any matcher must match:',
+                  mustNotMatch: 'Matcher must not match:',
+                },
+                button: {
+                  addMatcher: 'Add Matcher',
                 },
                 enum: {
+                  matcherType: {
+                    never: 'Never (Applies to nothing)',
+                    all: 'All (Always applies)',
+                    and: 'AND (All must match)',
+                    or: 'OR (Any must match)',
+                    not: 'NOT (Must not match)',
+                    eggs: 'Eggs',
+                    nests: 'Nests',
+                    nodes: 'Nodes',
+                    locations: 'Locations',
+                  },
+                  featureState: {
+                    inherit: 'Inherit',
+                    enabled: 'Enabled',
+                    disabled: 'Disabled',
+                  },
                   deploymentType: {
                     random: 'Random',
                     range: 'Port Range',
@@ -4200,6 +4233,19 @@ const baseTranslations = defineTranslations({
                       assignToVariablePlaceholder: 'e.g. SERVER_PORT',
                     },
                     removeRule: 'Remove deployment rule',
+                  },
+                },
+                features: {
+                  title: 'Feature Configuration',
+                  description:
+                    'Unlike other sections, each feature set to Inherit keeps the value from lower-order configurations. Features nobody sets stay enabled.',
+                  form: {
+                    firewall: 'Firewall',
+                    firewallDescription:
+                      'Lets users manage firewall rules for their servers. Disabling keeps existing rules but stops enforcing them.',
+                    privateNetwork: 'Private Network',
+                    privateNetworkDescription:
+                      'Lets servers join the private network and connect to other servers. Disabling removes them from the network until it is enabled again.',
                   },
                 },
                 startup: {
@@ -4740,6 +4786,7 @@ const baseTranslations = defineTranslations({
                   },
                   matcherType: {
                     none: 'None (Always applies)',
+                    never: 'Never (Applies to nothing)',
                     and: 'AND (All must match)',
                     or: 'OR (Any must match)',
                     not: 'NOT (Must not match)',

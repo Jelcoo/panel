@@ -10,6 +10,7 @@ type Matcher = AdminOAuthProviderMappingMatcher;
 
 const matcherDefaults: Record<Matcher['type'], () => Matcher> = {
   none: () => ({ type: 'none' }),
+  never: () => ({ type: 'never' }),
   and: () => ({ type: 'and', matchers: [] }),
   or: () => ({ type: 'or', matchers: [] }),
   not: () => ({ type: 'not', matcher: { type: 'none' } }),

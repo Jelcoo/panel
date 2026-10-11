@@ -17,6 +17,7 @@ use utoipa::ToSchema;
 #[schema(no_recursion)]
 pub enum OAuthProviderMappingMatcher {
     None,
+    Never,
     And {
         #[garde(dive)]
         matchers: Vec<OAuthProviderMappingMatcher>,
@@ -186,6 +187,7 @@ impl OAuthProviderMappingMatcher {
     ) -> bool {
         match self {
             OAuthProviderMappingMatcher::None => true,
+            OAuthProviderMappingMatcher::Never => false,
             OAuthProviderMappingMatcher::And { matchers } => {
                 matchers.iter().all(|m| m.matches(granted_scopes, info))
             }
@@ -956,6 +958,14 @@ mod tests {
             }
             .matches(&[], &info)
         );
+    }
+
+    #[test]
+    fn none_always_matches_and_never_never_does() {
+        let info = provider_info();
+
+        assert!(OAuthProviderMappingMatcher::None.matches(&[], &info));
+        assert!(!OAuthProviderMappingMatcher::Never.matches(&[], &info));
     }
 
     #[test]

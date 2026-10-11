@@ -71,6 +71,10 @@ export const adminOAuthProviderMappingMatcherNoneSchema = z.object({
   type: z.literal('none'),
 });
 
+export const adminOAuthProviderMappingMatcherNeverSchema = z.object({
+  type: z.literal('never'),
+});
+
 export const adminOAuthProviderMappingMatcherScopesSchema = z.object({
   type: z.literal('scopes'),
   scopes: z.array(z.string()),
@@ -112,6 +116,7 @@ export const adminOAuthProviderMappingMatcherFieldEndsWithSchema = z.object({
 
 export type AdminOAuthProviderMappingMatcher =
   | z.infer<typeof adminOAuthProviderMappingMatcherNoneSchema>
+  | z.infer<typeof adminOAuthProviderMappingMatcherNeverSchema>
   | {
       type: 'and' | 'or';
       matchers: AdminOAuthProviderMappingMatcher[];
@@ -130,6 +135,7 @@ export type AdminOAuthProviderMappingMatcher =
 export const adminOAuthProviderMappingMatcherSchema: ZodType<AdminOAuthProviderMappingMatcher> = z.lazy(() =>
   z.discriminatedUnion('type', [
     adminOAuthProviderMappingMatcherNoneSchema,
+    adminOAuthProviderMappingMatcherNeverSchema,
 
     z.object({
       type: z.literal('and'),
