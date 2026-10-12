@@ -217,6 +217,7 @@ const baseTranslations = defineTranslations({
       toast: {
         duplicated: '{resource} duplicated.',
         failedBackupDeletionStarted: 'Deleting {count} failed backups in the background.',
+        requestBlockedByExtension: 'This request was blocked by an extension.',
       },
       settingScope: {
         account: 'Sync With Account',

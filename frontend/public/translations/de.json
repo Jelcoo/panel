@@ -401,7 +401,8 @@
       },
       "toast": {
         "duplicated": "{resource} dupliziert.",
-        "failedBackupDeletionStarted": "{count} fehlgeschlagene Backups werden im Hintergrund gelöscht."
+        "failedBackupDeletionStarted": "{count} fehlgeschlagene Backups werden im Hintergrund gelöscht.",
+        "requestBlockedByExtension": "Diese Anfrage wurde von einer Erweiterung blockiert."
       },
       "settingScope": {
         "account": "Mit Konto synchronisieren",
