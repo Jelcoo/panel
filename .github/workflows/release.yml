@@ -36,7 +36,7 @@ jobs:
           # A tag is only allowed to move the "latest" markers if it is
           # actually the newest published version.
           LATEST_STABLE=$(git tag -l 'release-*' | sed 's/^release-//' | grep -vF -- '-' | sort -V | tail -n1)
-          LATEST_OVERALL=$(git tag -l 'release-*' | sed 's/^release-//' | sort -V | tail -n1)
+          LATEST_OVERALL=$(git tag -l 'release-*' | sed 's/^release-//; s/-/~/' | sort -V | sed 's/~/-/' | tail -n1)
 
           if [[ "$VERSION" == *-* ]]; then
             echo "is_prerelease=true" >> $GITHUB_OUTPUT
