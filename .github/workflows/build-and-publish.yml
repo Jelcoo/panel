@@ -226,6 +226,7 @@ jobs:
       - uses: calagopus/workflows/generate-sbom@26a33155dc7aee52184d9c268427c86656a308d0
 
   create-multiarch-images:
+    needs: [dist-linux, generate-sbom]
     uses: calagopus/workflows/.github/workflows/docker.yml@26a33155dc7aee52184d9c268427c86656a308d0
     secrets: inherit
     with:
