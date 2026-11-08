@@ -26,11 +26,18 @@ on:
         required: false
         type: boolean
         default: false
+      binary_name:
+        description: The name of the panel binary
+        required: false
+        type: string
+        default: panel-rs
+      aio_binary_name:
+        description: The name of the aio panel binary
+        required: false
+        type: string
+        default: panel-rs-aio
 
 env:
-  BIN_NAME: panel-rs
-  AIO_BIN_NAME: panel-rs-aio
-  PROJECT_NAME: panel-rs
   GHCR_IMAGE: ghcr.io/${{ github.repository }}
   DOCKERHUB_IMAGE: docker.io/${{ github.repository }}
 
@@ -126,7 +133,7 @@ jobs:
         run: cargo install cross --git https://github.com/cross-rs/cross --rev 8c1a8aa4b661711f4b7b6ac07c2e8929ce2f7d27 --locked
 
       - name: Extract wings binary
-        if: matrix.bin == env.AIO_BIN_NAME
+        if: matrix.bin == inputs.aio_binary_name
         env:
           WINGS_IMAGE: ghcr.io/calagopus/wings:${{ inputs.wings_channel == 'nightly' && 'nightly' || 'latest' }}
         run: |
@@ -192,10 +199,13 @@ jobs:
         env:
           # vendored openssl ships no ossl_static.pdb, so link.exe floods LNK4099
           RUSTFLAGS: "-A linker_messages"
+          BIN_NAME: ${{ inputs.binary_name }}
         run: cargo build --release --target x86_64-pc-windows-msvc -p $env:BIN_NAME
 
       - name: Prepare binary
         shell: pwsh
+        env:
+          BIN_NAME: ${{ inputs.binary_name }}
         run: |
           New-Item -ItemType Directory -Force -Path dist
           Copy-Item "target\x86_64-pc-windows-msvc\release\$env:BIN_NAME.exe" "dist\$env:BIN_NAME-x86_64-windows.exe"
@@ -203,7 +213,7 @@ jobs:
       - name: Upload binary artifact
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: ${{ env.BIN_NAME }}-x86_64-windows
+          name: ${{ inputs.binary_name }}-x86_64-windows
           path: dist/*.exe
 
   generate-sbom:
@@ -222,8 +232,8 @@ jobs:
       image_tag: ${{ inputs.image_tag }}
       tag_latest: ${{ inputs.tag_latest }}
       tag_latest_pre: ${{ inputs.tag_latest_pre }}
-      binary_name: ${{ env.BIN_NAME }}
-      aio_binary_name: ${{ env.AIO_BIN_NAME }}
+      binary_name: ${{ inputs.binary_name }}
+      aio_binary_name: ${{ inputs.aio_binary_name }}
 
   # build-heavy-images:
   #   name: Build ${{ matrix.variant }} Docker image (${{ matrix.platform }})
