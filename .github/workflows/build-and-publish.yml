@@ -224,11 +224,11 @@ jobs:
 
     steps:
       - name: Generate SBOM
-        uses: calagopus/workflows/generate-sbom@f88517b156a0a80dcb0fb07a9b52da4998277cb2
+        uses: calagopus/workflows/generate-sbom@6fdfb202013d55d2c54e36ee8acc1a8456f95a24
 
   create-multiarch-images:
     needs: [dist-linux, generate-sbom]
-    uses: calagopus/workflows/.github/workflows/docker.yml@f88517b156a0a80dcb0fb07a9b52da4998277cb2
+    uses: calagopus/workflows/.github/workflows/docker.yml@6fdfb202013d55d2c54e36ee8acc1a8456f95a24
     secrets: inherit
     with:
       image-tag: ${{ inputs.image_tag }}
