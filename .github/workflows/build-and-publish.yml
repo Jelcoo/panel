@@ -233,7 +233,7 @@ jobs:
     with:
       image-tag: ${{ inputs.image_tag }}
       tag-latest: ${{ inputs.tag_latest }}
-      tag-latest_pre: ${{ inputs.tag_latest_pre }}
+      tag-latest-pre: ${{ inputs.tag_latest_pre }}
       binary-name: ${{ inputs.binary_name }}
       aio-binary-name: ${{ inputs.aio_binary_name }}
 
