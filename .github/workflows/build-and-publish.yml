@@ -223,18 +223,19 @@ jobs:
       contents: read
 
     steps:
-      - uses: calagopus/workflows/generate-sbom@26a33155dc7aee52184d9c268427c86656a308d0
+      - name: Generate SBOM
+        uses: calagopus/workflows/generate-sbom@f88517b156a0a80dcb0fb07a9b52da4998277cb2
 
   create-multiarch-images:
     needs: [dist-linux, generate-sbom]
-    uses: calagopus/workflows/.github/workflows/docker.yml@26a33155dc7aee52184d9c268427c86656a308d0
+    uses: calagopus/workflows/.github/workflows/docker.yml@f88517b156a0a80dcb0fb07a9b52da4998277cb2
     secrets: inherit
     with:
-      image_tag: ${{ inputs.image_tag }}
-      tag_latest: ${{ inputs.tag_latest }}
-      tag_latest_pre: ${{ inputs.tag_latest_pre }}
-      binary_name: ${{ inputs.binary_name }}
-      aio_binary_name: ${{ inputs.aio_binary_name }}
+      image-tag: ${{ inputs.image_tag }}
+      tag-latest: ${{ inputs.tag_latest }}
+      tag-latest_pre: ${{ inputs.tag_latest_pre }}
+      binary-name: ${{ inputs.binary_name }}
+      aio-binary-name: ${{ inputs.aio_binary_name }}
 
   # build-heavy-images:
   #   name: Build ${{ matrix.variant }} Docker image (${{ matrix.platform }})
